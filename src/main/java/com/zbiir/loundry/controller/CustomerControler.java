@@ -22,12 +22,45 @@ public class CustomerControler {
 
     @Autowired
     private CustomerService customerService;
+    @GetMapping("/find")
+    public List<Customer> findAllContent(@RequestParam String find){
+        return customerService.findCustmer(find);
+
+    }
+
+
+    @PutMapping("/update/{id}")
+    public Customer updateCustomer(@Valid @RequestBody CustomerDTO customerDTO, @PathVariable long id){
+        Customer createdCustomer =
+                customerService.updateCustomer(new Customer(
+                        id,
+                        customerDTO.getName(),
+                        customerDTO.getAddres(),
+                        customerDTO.getPhone()
+                ));
+        return createdCustomer;
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Customer> addCustomer(@Valid @RequestBody CustomerDTO customerDTO){
+        Customer createdCustomer =
+                customerService.createCustomer(new Customer(
+                    null,
+                    customerDTO.getName(),
+                    customerDTO.getAddres(),
+                    customerDTO.getPhone()
+                ));
+        return new ResponseEntity(createdCustomer,HttpStatus.CREATED);
+    }
 
     @DeleteMapping("/delete/{id}")
     public void deleteCustomer(@PathVariable long id){
         customerService.deleteCustomer(id);
     }
-
+    @GetMapping("/all")
+    public List<Customer> getAllCustomers(){
+        return customerService.getAllCustomers();
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Customer> getCustomer(@PathVariable long id){

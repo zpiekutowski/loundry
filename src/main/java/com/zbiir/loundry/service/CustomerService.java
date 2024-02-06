@@ -36,4 +36,8 @@ public class CustomerService {
     public void deleteCustomer(long id) {
         customerRepository.deleteById(id);
     }
+
+    public List<Customer> findCustmer(String find) {
+        return customerRepository.findByNameContaining(find);
+    }
 }
