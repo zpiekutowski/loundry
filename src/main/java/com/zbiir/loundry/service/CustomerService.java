@@ -1,5 +1,6 @@
 package com.zbiir.loundry.service;
 
+import com.zbiir.loundry.exception.IdOutOfBoudException;
 import com.zbiir.loundry.model.Customer;
 import com.zbiir.loundry.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,13 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public Optional<Customer> getSingleCustomer(long id){
-
-        return customerRepository.findById(id);
+    public Customer getSingleCustomer(long id) throws IdOutOfBoudException {
+        Optional<Customer> customer = customerRepository.findById(id);
+        if(customer.isPresent()){
+            return customer.get();
+        }else {
+            throw new IdOutOfBoudException("Customer poza zakresem:"+id);
+        }
 
     }
 

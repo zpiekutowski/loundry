@@ -1,5 +1,6 @@
 package com.zbiir.loundry.controller;
 
+import com.zbiir.loundry.exception.IdOutOfBoudException;
 import com.zbiir.loundry.model.Customer;
 import com.zbiir.loundry.model.CustomerDTO;
 import com.zbiir.loundry.service.CustomerService;
@@ -20,7 +21,7 @@ import java.util.Optional;
 @RequestMapping("/customer")
 public class CustomerControler {
 
-    @Autowired
+     @Autowired
     private CustomerService customerService;
     @GetMapping("/find")
     public List<Customer> findAllContent(@RequestParam String find){
@@ -63,30 +64,10 @@ public class CustomerControler {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Customer> getCustomer(@PathVariable long id){
-            Optional<Customer> customer = customerService.getSingleCustomer(id);
-            if(customer.isPresent()){
-               return new ResponseEntity<>(customer.get(), HttpStatus.OK);
-            }
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Customer> getCustomer(@PathVariable long id) throws IdOutOfBoudException {
+         return new ResponseEntity<Customer>(customerService.getSingleCustomer(id), HttpStatus.OK);
+
     }
-
-
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String,String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String,String> errorMap = new HashMap<String,String>();
-        ex.getBindingResult().getAllErrors().forEach( (err) -> {
-            String fieldName = ((FieldError) err).getField();
-            String fieldMesage = err.getDefaultMessage();
-            errorMap.put(fieldName,fieldMesage);
-
-        });
-
-        return errorMap;
-    }
-
 
 
 }
