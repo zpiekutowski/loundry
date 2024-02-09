@@ -1,0 +1,28 @@
+-- liquibase formatted sql
+-- changeset zbiir:3
+
+CREATE TABLE ORDERS (
+    ID BIGINT NOT  NULL AUTO_INCREMENT,
+    PRICE float(6,2),
+    START_DATE date,
+    FINISH_DATE date,
+    PRIMARY KEY (ID)
+)
+
+
+-- changeset zbiir:4
+CREATE TABLE UNIT_ORDER (
+    ID BIGINT NOT  NULL AUTO_INCREMENT,
+    ID_ORDER BIGINT,
+    SERVED_UNIT BIGINT,
+    TAG_LABEL varchar(10),
+    COMMENT varchar(100),
+    UNIT_PRICE float(6,2),
+    START_DATE date,
+    FINISH_DATE date,
+
+    PRIMARY KEY (ID),
+    FOREIGN KEY (ID_ORDER) REFERENCES ORDERS(ID),
+    FOREIGN KEY (SERVED_UNIT) REFERENCES SERVED_UNIT(ID)
+
+)
