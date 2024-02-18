@@ -1,6 +1,7 @@
 package com.zbiir.loundry.advice;
 
 import com.zbiir.loundry.exception.IdOutOfBoudException;
+import com.zbiir.loundry.exception.OrderExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -31,6 +32,15 @@ public class AplicationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IdOutOfBoudException.class)
     public Map<String,String> handlerIdOutOfBoudException(IdOutOfBoudException ex){
+        Map<String,String> errorMap = new HashMap<>();
+        errorMap.put("message",ex.getMessage());
+        return errorMap;
+    }
+
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(OrderExistException.class)
+    public Map<String,String> handlerOrderExistException(OrderExistException ex){
         Map<String,String> errorMap = new HashMap<>();
         errorMap.put("message",ex.getMessage());
         return errorMap;
