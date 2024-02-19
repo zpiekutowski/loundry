@@ -1,5 +1,5 @@
 -- liquibase formatted sql
--- changeset zbiir:3
+-- changeset zbiir:4
 
 CREATE TABLE ORDERS (
     ID BIGINT NOT  NULL AUTO_INCREMENT,
@@ -7,11 +7,13 @@ CREATE TABLE ORDERS (
     PRICE float(6,2),
     START_DATE date,
     FINISH_DATE date,
-    PRIMARY KEY (ID)
+    PRIMARY KEY (ID),
+
+    FOREIGN KEY (ID_CUSTOMER) REFERENCES CUSTOMERS(ID)
 )
 
 
--- changeset zbiir:4
+-- changeset zbiir:5
 CREATE TABLE UNIT_ORDER (
     ID BIGINT NOT  NULL AUTO_INCREMENT,
     ID_ORDER BIGINT,

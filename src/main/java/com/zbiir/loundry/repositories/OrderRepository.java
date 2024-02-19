@@ -1,10 +1,11 @@
 package com.zbiir.loundry.repositories;
 
-import com.zbiir.loundry.model.ServedUnit;
+import com.zbiir.loundry.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ServedUnitRepository extends JpaRepository<ServedUnit, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
+
 
 }

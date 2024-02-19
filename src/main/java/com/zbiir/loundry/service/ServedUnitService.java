@@ -1,8 +1,8 @@
 package com.zbiir.loundry.service;
 
-import com.zbiir.loundry.exception.IdOutOfBoudException;
+import com.zbiir.loundry.exception.IdCustomerOutOfBoudException;
+import com.zbiir.loundry.exception.IdServedUnitOutOfBoundException;
 import com.zbiir.loundry.model.ServedUnit;
-import com.zbiir.loundry.model.ServedUnitDTO;
 import com.zbiir.loundry.repositories.ServedUnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +23,11 @@ public class ServedUnitService {
         return servedUnitRepository.save(servedUnit);
     }
 
-    public ServedUnit getServedUnit(long id) throws IdOutOfBoudException {
+    public ServedUnit getServedUnit(long id) throws IdServedUnitOutOfBoundException {
         Optional<ServedUnit> servedUnit = servedUnitRepository.findById(id);
         if(servedUnit.isPresent()){
             return servedUnit.get();
-        }else {throw new IdOutOfBoudException("Wpis nie istnieje: "+id);}
+        }else {throw new IdServedUnitOutOfBoundException("Nie ma takiej usługi: "+id);}
     }
 
     public void deleteServedUnit(long id) {

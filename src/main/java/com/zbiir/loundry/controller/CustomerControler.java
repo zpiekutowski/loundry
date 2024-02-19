@@ -1,6 +1,6 @@
 package com.zbiir.loundry.controller;
 
-import com.zbiir.loundry.exception.IdOutOfBoudException;
+import com.zbiir.loundry.exception.IdCustomerOutOfBoudException;
 import com.zbiir.loundry.model.Customer;
 import com.zbiir.loundry.model.CustomerDTO;
 import com.zbiir.loundry.service.CustomerService;
@@ -8,14 +8,9 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer")
@@ -64,7 +59,7 @@ public class CustomerControler {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Customer> getCustomer(@PathVariable long id) throws IdOutOfBoudException {
+    public ResponseEntity<Customer> getCustomer(@PathVariable long id) throws IdCustomerOutOfBoudException {
          return new ResponseEntity<Customer>(customerService.getSingleCustomer(id), HttpStatus.OK);
 
     }

@@ -1,6 +1,7 @@
 package com.zbiir.loundry.controller;
 
-import com.zbiir.loundry.exception.IdOutOfBoudException;
+import com.zbiir.loundry.exception.IdCustomerOutOfBoudException;
+import com.zbiir.loundry.exception.IdServedUnitOutOfBoundException;
 import com.zbiir.loundry.model.ServedUnit;
 import com.zbiir.loundry.model.ServedUnitDTO;
 import com.zbiir.loundry.service.ServedUnitService;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/sunit")
@@ -32,7 +32,7 @@ public class ServedUnitControler {
     }
 
     @GetMapping("/{id}")
-    public ServedUnit getServedUnit (@PathVariable long id) throws IdOutOfBoudException {
+    public ServedUnit getServedUnit (@PathVariable long id) throws IdServedUnitOutOfBoundException {
          return servedUnitService.getServedUnit(id);
     }
 
