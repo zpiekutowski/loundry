@@ -9,6 +9,8 @@ import com.zbiir.loundry.model.UnitOrderDTO;
 import com.zbiir.loundry.service.OrderService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,33 +21,50 @@ public class OrderController {
     private OrderService orderService;
     private Order order;
 
+    @CrossOrigin
     @PostMapping("/add_unit")
     public Order addService(@RequestBody UnitOrderDTO unitOrderDTO) throws IdServedUnitOutOfBoundException {
         return orderService.newUnitOrder(unitOrderDTO);
     }
 
+
     @PostMapping("/setcustomer/{id}")
     public Order setCustomerId(@PathVariable Long id) throws IdCustomerOutOfBoudException {
         return orderService.setCustomerId(id);
     }
+   // @CrossOrigin
     @PostMapping("/new")
     public Order newOrder() throws OrderExistException {
         return orderService.newOrder();
        }
 
-    @GetMapping("/current")
-    public Order getcurrent(HttpSession session){
-        order = (Order) session.getAttribute("order");
-        return order;
+   // @CrossOrigin
+    @PostMapping("/cancel_order")
+    public void cancelOrder(){
+        orderService.cancelOrder();
     }
-    @PostMapping("/save")
+
+
+    @CrossOrigin
+    @GetMapping("/current")
+    public ResponseEntity<Order> getcurrent(){
+        Order order =  orderService.getCurrent();
+        if (order == null){
+            return new ResponseEntity(null, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity(order,HttpStatus.OK);
+    }
+    @CrossOrigin
+    @PostMapping("/save")   //save order to DB
     public Order save(){
         return orderService.saveOrder();
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return orderService.test();
-
+    @CrossOrigin
+    @GetMapping("/read/{id}")
+    public Order readOrder(@PathVariable Long id){
+        return orderService.read(id);
     }
+
+
 }

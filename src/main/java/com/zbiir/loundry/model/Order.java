@@ -21,6 +21,7 @@ public class Order {
     private Float price;
     private LocalDate startDate;
     private LocalDate finishDate;
+    private Boolean isReady;
     @OneToMany (mappedBy = "idOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<UnitOrder> unitOrders = new ArrayList<UnitOrder>();

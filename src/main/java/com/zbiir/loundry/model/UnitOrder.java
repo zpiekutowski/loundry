@@ -29,5 +29,7 @@ public class UnitOrder {
     private Float unitPrice;
     private LocalDate startDate;
     private LocalDate finishDate;
+    private LocalDate plannedFinishDate;
+
 
 }

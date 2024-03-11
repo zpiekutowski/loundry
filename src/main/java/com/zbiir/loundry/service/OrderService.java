@@ -31,6 +31,7 @@ public class OrderService {
         Order order = (Order) session.getAttribute("order");
         if (order==null){
             order = new Order();
+            order.setPrice(0.00f);
             session.setAttribute("order", order);
             order.setStartDate(LocalDate.now());
             return order;
@@ -57,10 +58,10 @@ public class OrderService {
         Order order = (Order) session.getAttribute("order");
 
         UnitOrder unitOrder = new UnitOrder();
-        unitOrder.setType(servedUnitService.getServedUnit(unitOrderDTO.getIdServedUnit()));
+        unitOrder.setType(servedUnitService.getServedUnit(unitOrderDTO.getIdType()));
         unitOrder.setTagLabel(unitOrderDTO.getTag());
-        unitOrder.setComment(unitOrderDTO.getComments());
-        unitOrder.setUnitPrice(unitOrderDTO.getUnitPrice());
+        unitOrder.setComment(unitOrderDTO.getComment());
+        unitOrder.setUnitPrice(unitOrderDTO.getPrice());
         unitOrder.setStartDate(LocalDate.now());
         unitOrder.setIdOrder(order);
         order.getUnitOrders().add(unitOrder);
@@ -79,7 +80,21 @@ public class OrderService {
             System.out.println("dodaj validacje zamowienia");
             return null;
         }
+    }
+    public Order read(Long id) {
+        return orderRepository.findById(id).get();
+    }
 
+    public void cancelOrder() {
+        Order order = (Order) session.getAttribute("order");
+        if(order != null){
+            session.removeAttribute("order");
+        }
 
+    }
+
+    public Order getCurrent() {
+
+        return order = (Order) session.getAttribute("order");
     }
 }
