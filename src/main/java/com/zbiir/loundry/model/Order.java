@@ -20,11 +20,24 @@ public class Order {
     private Customer customer;
     private Float price;
     private LocalDate startDate;
-    private LocalDate finishDate;
+    private LocalDate planedFinishDate;
     private Boolean isReady;
+    private Boolean isPaid;
     @OneToMany (mappedBy = "idOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<UnitOrder> unitOrders = new ArrayList<UnitOrder>();
 
-
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", price=" + price +
+                ", startDate=" + startDate +
+                ", finishDate=" + planedFinishDate +
+                ", isReady=" + isReady +
+                ", isPaid=" + isPaid +
+                ", unitOrders=" + unitOrders +
+                '}';
+    }
 }

@@ -41,7 +41,6 @@ public class CustomerControler {
     }
 
     @PostMapping("/add")
-    @CrossOrigin
     public ResponseEntity<Customer> addCustomer(@Valid @RequestBody CustomerDTO customerDTO){
         Customer createdCustomer =
                 customerService.createCustomer(new Customer(
@@ -52,19 +51,16 @@ public class CustomerControler {
                 ));
         return new ResponseEntity(createdCustomer,HttpStatus.CREATED);
     }
-    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public void deleteCustomer(@PathVariable long id){
         customerService.deleteCustomer(id);
     }
     @GetMapping("/all")
-    @CrossOrigin
     public List<Customer> getAllCustomers(){
         return customerService.getAllCustomers();
     }
 
     @GetMapping("/{id}")
-    @CrossOrigin
     public ResponseEntity<Customer> getCustomer(@PathVariable long id) throws IdCustomerOutOfBoudException {
          return new ResponseEntity<Customer>(customerService.getSingleCustomer(id), HttpStatus.OK);
 

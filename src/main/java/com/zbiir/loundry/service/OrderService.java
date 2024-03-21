@@ -1,100 +1,54 @@
 package com.zbiir.loundry.service;
 
-
-import com.zbiir.loundry.exception.IdCustomerOutOfBoudException;
-import com.zbiir.loundry.exception.IdServedUnitOutOfBoundException;
-import com.zbiir.loundry.exception.OrderExistException;
 import com.zbiir.loundry.model.Order;
-import com.zbiir.loundry.model.UnitOrder;
-import com.zbiir.loundry.model.UnitOrderDTO;
+import com.zbiir.loundry.model.OrderDTO;
 import com.zbiir.loundry.repositories.OrderRepository;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class OrderService {
-
     @Autowired
     private OrderRepository orderRepository;
-    @Autowired
-    private CustomerService customerService;
-    @Autowired
-    private ServedUnitService servedUnitService;
-    @Autowired
-    HttpSession session;
 
-    private Order order;
-    public Order newOrder() throws OrderExistException{
-        Order order = (Order) session.getAttribute("order");
-        if (order==null){
-            order = new Order();
-            order.setPrice(0.00f);
-            session.setAttribute("order", order);
-            order.setStartDate(LocalDate.now());
-            return order;
+
+    public List<OrderDTO> getActiveOrders() {
+
+        List<OrderDTO> ordersDTO = new ArrayList<>();
+        List<Order> orders = orderRepository.findAllOrders();
+        //List<Order> orders = orderRepository.findAll();
+        orders.forEach((item)->{
+            OrderDTO orderDTO = new OrderDTO();
+            orderDTO.setId(item.getId());
+            orderDTO.setCustomerName(item.getCustomer().getName());
+            orderDTO.setStartingDate(item.getStartDate());
+            orderDTO.setPlanedFinishDate(item.getPlanedFinishDate());
+            orderDTO.setUnitQtn(item.getUnitOrders().size());
+            orderDTO.setPrice(item.getPrice());
+            orderDTO.setReady(item.getIsReady());
+            ordersDTO.add(orderDTO);
+        });
+        return ordersDTO;
+    }
+
+    public Order getOrderbyId(long id) {
+       Optional<Order> order = orderRepository.findById(id);
+        if (order.isPresent()){
+            return order.get();
         }
-        else{
-            throw new OrderExistException("New order can NOT be placed, please close current order");
-        }
-
-    }
-
-
-    public Order setCustomerId(Long id) throws IdCustomerOutOfBoudException {
-        order = (Order) session.getAttribute("order");
-        order.setCustomer(customerService.getSingleCustomer(id));
-        return order;
-    }
-
-    public String test() {
-        return session.getId();
-    }
-
-    public Order newUnitOrder(UnitOrderDTO unitOrderDTO) throws IdServedUnitOutOfBoundException {
-
-        Order order = (Order) session.getAttribute("order");
-
-        UnitOrder unitOrder = new UnitOrder();
-        unitOrder.setType(servedUnitService.getServedUnit(unitOrderDTO.getIdType()));
-        unitOrder.setTagLabel(unitOrderDTO.getTag());
-        unitOrder.setComment(unitOrderDTO.getComment());
-        unitOrder.setUnitPrice(unitOrderDTO.getPrice());
-        unitOrder.setStartDate(LocalDate.now());
-        unitOrder.setIdOrder(order);
-        order.getUnitOrders().add(unitOrder);
-        order.setPrice((float) order.getUnitOrders().stream().map(UnitOrder::getUnitPrice).reduce(0F,(a,b)->a+b));
-
-        return order;
-    }
-
-    public Order saveOrder() {
-
-        order =(Order) session.getAttribute("order");
-        if (order.getCustomer()!=null && !(order.getUnitOrders().isEmpty())){
-            orderRepository.save(order);
-            return order;
-        }else{
-            System.out.println("dodaj validacje zamowienia");
+        else
             return null;
-        }
-    }
-    public Order read(Long id) {
-        return orderRepository.findById(id).get();
     }
 
-    public void cancelOrder() {
-        Order order = (Order) session.getAttribute("order");
-        if(order != null){
-            session.removeAttribute("order");
-        }
+    public List<Order> getAllAllOrders() {
+        return orderRepository.findAll();
 
     }
 
-    public Order getCurrent() {
 
-        return order = (Order) session.getAttribute("order");
-    }
 }

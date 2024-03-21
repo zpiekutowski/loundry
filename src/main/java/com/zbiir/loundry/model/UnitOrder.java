@@ -27,9 +27,18 @@ public class UnitOrder {
     private String tagLabel;
     private String comment;
     private Float unitPrice;
-    private LocalDate startDate;
     private LocalDate finishDate;
-    private LocalDate plannedFinishDate;
 
-
+    @Override
+    public String toString() {
+        return "UnitOrder{" +
+                "id=" + id +
+//                ", idOrder=" + idOrder +
+                ", type=" + type +
+                ", tagLabel='" + tagLabel + '\'' +
+                ", comment='" + comment + '\'' +
+                ", unitPrice=" + unitPrice +
+                ", finishDate=" + finishDate +
+               '}';
+    }
 }

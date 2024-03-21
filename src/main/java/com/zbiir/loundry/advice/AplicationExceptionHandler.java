@@ -3,6 +3,7 @@ package com.zbiir.loundry.advice;
 import com.zbiir.loundry.exception.IdCustomerOutOfBoudException;
 import com.zbiir.loundry.exception.IdServedUnitOutOfBoundException;
 import com.zbiir.loundry.exception.OrderExistException;
+import com.zbiir.loundry.exception.UnitOrderExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -52,6 +53,13 @@ public class AplicationExceptionHandler {
         return errorMap;
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UnitOrderExistException.class)
+    public Map<String,String> handlerUnitOrderExistException(UnitOrderExistException ex){
+        Map<String,String> errorMap = new HashMap<>();
+        errorMap.put("message",ex.getMessage());
+        return errorMap;
+    }
 
 
 }
