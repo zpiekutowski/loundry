@@ -25,6 +25,8 @@ public class NewOrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private PrintService printService;
 
     private NewOrder newOrder;
 
@@ -114,7 +116,7 @@ public class NewOrderService {
     }
 
     public void saveOrder() {
-        System.out.println("zapisuje do bazy danych");
+
         newOrder = (NewOrder) session.getAttribute("newOrder");
         Order order = new Order();
 
@@ -137,6 +139,7 @@ public class NewOrderService {
         });
 
         orderRepository.save(order);
+        printService.printOrder(order,2);
         session.removeAttribute("newOrder");
 
     }

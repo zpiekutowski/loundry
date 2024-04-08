@@ -3,9 +3,11 @@ package com.zbiir.loundry.service;
 import com.zbiir.loundry.model.Order;
 import com.zbiir.loundry.model.OrderDTO;
 import com.zbiir.loundry.repositories.OrderRepository;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +17,8 @@ import java.util.Optional;
 public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private  PrintService printService;
 
 
     public List<OrderDTO> getActiveOrders() {
@@ -50,5 +54,13 @@ public class OrderService {
 
     }
 
+    public boolean printOrder(Long id) {
 
+        Optional<Order> order = orderRepository.findById(id);
+        if (order.isEmpty()){
+            return  false;
+        }
+        printService.printOrder(order.get(),1);
+        return true;
+    }
 }

@@ -1,5 +1,6 @@
 package com.zbiir.loundry.controller;
 
+import com.zbiir.loundry.model.ApiRespond;
 import com.zbiir.loundry.model.Order;
 import com.zbiir.loundry.model.OrderDTO;
 import com.zbiir.loundry.service.OrderService;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/order")
@@ -37,6 +37,12 @@ public class OrderControler {
     public List<Order> getAlAllOrders(){
         return orderService.getAllAllOrders();
 
+    }
+    @GetMapping("/print/{id}")
+    public ApiRespond printOrder(@PathVariable Long id){
+
+       ApiRespond status = new ApiRespond().setStatus(orderService.printOrder(id));
+       return status;
     }
 
 
