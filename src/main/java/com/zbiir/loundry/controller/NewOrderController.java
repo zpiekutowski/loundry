@@ -4,8 +4,8 @@ import com.zbiir.loundry.exception.IdCustomerOutOfBoudException;
 import com.zbiir.loundry.exception.IdServedUnitOutOfBoundException;
 import com.zbiir.loundry.exception.OrderExistException;
 import com.zbiir.loundry.model.Date;
-import com.zbiir.loundry.model.Order;
 import com.zbiir.loundry.model.NewOrder;
+import com.zbiir.loundry.model.Order;
 import com.zbiir.loundry.model.UnitOrderDTO;
 import com.zbiir.loundry.service.NewOrderService;
 import jakarta.validation.Valid;
@@ -38,51 +38,52 @@ public class NewOrderController {
         return newOrderService.setCustomerId(id);
     }
 
-   // @CrossOrigin
+    // @CrossOrigin
     @PostMapping("/cancel_order")
-    public void cancelOrder(){
+    public void cancelOrder() {
         newOrderService.cancelOrder();
     }
 
     @PostMapping("/remove_unit/{id}")
-    public NewOrder removeUnitOrder(@PathVariable int id){
-            return newOrderService.removeUnitOrder(id);
+    public NewOrder removeUnitOrder(@PathVariable int id) {
+        return newOrderService.removeUnitOrder(id);
 
     }
 
 
     @GetMapping("/current")
-    public ResponseEntity<Order> getcurrent(){
-        NewOrder newOrder =  newOrderService.getCurrent();
-        if (newOrder == null){
+    public ResponseEntity<Order> getcurrent() {
+        NewOrder newOrder = newOrderService.getCurrent();
+        if (newOrder == null) {
             return new ResponseEntity(null, HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity(newOrder,HttpStatus.OK);
+        return new ResponseEntity(newOrder, HttpStatus.OK);
     }
 
     @GetMapping("/get_unit_order_DTO/{idRow}")
-    public ResponseEntity<UnitOrderDTO> getUnirOrderDTO(@PathVariable int idRow){
-        return new ResponseEntity(newOrderService.getUnitOrderDTO(idRow),HttpStatus.OK);
+    public ResponseEntity<UnitOrderDTO> getUnirOrderDTO(@PathVariable int idRow) {
+        return new ResponseEntity(newOrderService.getUnitOrderDTO(idRow), HttpStatus.OK);
     }
+
     @PostMapping("/edit_unit_order_DTO")
-    public void editUnitOrderDTO(@Valid @RequestBody UnitOrderDTO unitOrderDTO){
+    public void editUnitOrderDTO(@Valid @RequestBody UnitOrderDTO unitOrderDTO) {
         newOrderService.editUnitOrderDTO(unitOrderDTO);
     }
 
     @PostMapping("/set_planed_finish_date")
-    public void setPlanedFinishDate(@RequestBody Date date){
+    public void setPlanedFinishDate(@RequestBody Date date) {
         newOrderService.setPlanedFinishDate(date);
     }
 
     @PostMapping("/set_is_paid/{isPaid}")
-    public void setIsPaid(@PathVariable boolean isPaid){
+    public void setIsPaid(@PathVariable boolean isPaid) {
 
         newOrderService.setIsPaid(isPaid);
     }
 
     @PostMapping("/save_order")
-    public void saveOrder(){
-       newOrderService.saveOrder();
+    public void saveOrder(@RequestParam("print") Boolean print) {
+        newOrderService.saveOrder(print);
     }
 
 }

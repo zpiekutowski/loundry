@@ -31,10 +31,9 @@ public class NewOrderService {
     private NewOrder newOrder;
 
 
-
-    public NewOrder newOrder() throws OrderExistException{
+    public NewOrder newOrder() throws OrderExistException {
         NewOrder newOrder = (NewOrder) session.getAttribute("newOrder");
-        if (newOrder==null){
+        if (newOrder == null) {
             newOrder = new NewOrder();
             newOrder.setPrice(0.00f);
             newOrder.setIsPaid(false);
@@ -42,8 +41,7 @@ public class NewOrderService {
             newOrder.setStartDate(LocalDate.now());
             session.setAttribute("newOrder", newOrder);
             return newOrder;
-        }
-        else{
+        } else {
             throw new OrderExistException("New order can NOT be placed, please close current");
         }
 
@@ -60,18 +58,17 @@ public class NewOrderService {
     public NewOrder newUnitOrder(UnitOrderDTO unitOrderDTO) throws IdServedUnitOutOfBoundException {
 
         newOrder = (NewOrder) session.getAttribute("newOrder");
-        unitOrderDTO.setRowNumber(newOrder.getUnitOrders().size() +1);
+        unitOrderDTO.setRowNumber(newOrder.getUnitOrders().size() + 1);
         newOrder.getUnitOrders().add(unitOrderDTO);
-        newOrder.setPrice((float) newOrder.getUnitOrders().stream().map(UnitOrderDTO::getPrice).reduce(0F,(a,b)->a+b));
+        newOrder.setPrice((float) newOrder.getUnitOrders().stream().map(UnitOrderDTO::getPrice).reduce(0F, (a, b) -> a + b));
 
         return newOrder;
     }
 
 
-
     public void cancelOrder() {
         NewOrder orderDTO = (NewOrder) session.getAttribute("newOrder");
-        if(orderDTO != null){
+        if (orderDTO != null) {
             session.removeAttribute("newOrder");
         }
 
@@ -84,24 +81,25 @@ public class NewOrderService {
 
     public NewOrder removeUnitOrder(int id) {
         NewOrder newOrder = (NewOrder) session.getAttribute("newOrder");
-        newOrder.getUnitOrders().remove(id-1);
+        newOrder.getUnitOrders().remove(id - 1);
 
-        for(int i=0;i<newOrder.getUnitOrders().size();i++){
-            newOrder.getUnitOrders().get(i).setRowNumber(i+1);
-        };
-        newOrder.setPrice((float) newOrder.getUnitOrders().stream().map(UnitOrderDTO::getPrice).reduce(0F,(a,b)->a+b));
+        for (int i = 0; i < newOrder.getUnitOrders().size(); i++) {
+            newOrder.getUnitOrders().get(i).setRowNumber(i + 1);
+        }
+        ;
+        newOrder.setPrice((float) newOrder.getUnitOrders().stream().map(UnitOrderDTO::getPrice).reduce(0F, (a, b) -> a + b));
         return newOrder;
     }
 
     public UnitOrderDTO getUnitOrderDTO(int idRow) {
         newOrder = (NewOrder) session.getAttribute("newOrder");
-        return newOrder.getUnitOrders().get(idRow-1);
+        return newOrder.getUnitOrders().get(idRow - 1);
     }
 
     public void editUnitOrderDTO(UnitOrderDTO unitOrderDTO) {
         newOrder = (NewOrder) session.getAttribute("newOrder");
-        newOrder.getUnitOrders().set(unitOrderDTO.getRowNumber()-1,unitOrderDTO);
-        newOrder.setPrice((float) newOrder.getUnitOrders().stream().map(UnitOrderDTO::getPrice).reduce(0F,(a,b)->a+b));
+        newOrder.getUnitOrders().set(unitOrderDTO.getRowNumber() - 1, unitOrderDTO);
+        newOrder.setPrice((float) newOrder.getUnitOrders().stream().map(UnitOrderDTO::getPrice).reduce(0F, (a, b) -> a + b));
 
     }
 
@@ -115,7 +113,7 @@ public class NewOrderService {
         newOrder.setIsPaid(isPaid);
     }
 
-    public void saveOrder() {
+    public void saveOrder(Boolean print) {
 
         newOrder = (NewOrder) session.getAttribute("newOrder");
         Order order = new Order();
@@ -127,7 +125,7 @@ public class NewOrderService {
         order.setIsReady(false);
         order.setIsPaid(newOrder.getIsPaid());
 
-        newOrder.getUnitOrders().forEach((unit)->{
+        newOrder.getUnitOrders().forEach((unit) -> {
             UnitOrder unitOrder = new UnitOrder();
             unitOrder.setIdOrder(order);
             unitOrder.setType(unit.getType());
@@ -137,9 +135,10 @@ public class NewOrderService {
             unitOrder.setFinishDate(null);
             order.getUnitOrders().add(unitOrder);
         });
-
         orderRepository.save(order);
-        printService.printOrder(order,2);
+        if (print) {
+            printService.printOrder(order,2);
+        }
         session.removeAttribute("newOrder");
 
     }

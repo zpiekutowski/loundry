@@ -26,7 +26,7 @@ import java.util.Map;
 @Service
 public class PrintService {
 
-    public boolean printOrder(Order order,Integer quantity) {
+    public boolean printOrder(Order order, Integer quantity) {
 
         try {
             Map<String, Object> dataPrint = new HashMap<>();
@@ -36,21 +36,21 @@ public class PrintService {
             dataPrint.put("addres", order.getCustomer().getAddres());
             dataPrint.put("phone", order.getCustomer().getPhone());
             dataPrint.put("idOrder", order.getId().toString());
-            String paid = (order.getIsPaid()) ? "ZAPŁACONE" : "PLATNE PRZY ODBIORZE";
+            String paid = (order.getIsPaid()) ? "ZAPLACONE" : "PLATNE PRZY ODBIORZE";
             dataPrint.put("isPaid", paid);
-            dataPrint.put("totalPrice", String.format("%.2f",order.getPrice()));
+            dataPrint.put("totalPrice", String.format("%.2f", order.getPrice()));
 
 
             List printUnitOrders = new ArrayList();
-            for(int i=0;i<order.getUnitOrders().size();i++){
+            for (int i = 0; i < order.getUnitOrders().size(); i++) {
                 PrintObject printObject = new PrintObject();
                 UnitOrder unitOrder = order.getUnitOrders().get(i);
-                printObject.setLp(Integer.toString(i+1));
+                printObject.setLp(Integer.toString(i + 1));
                 printObject.setType(unitOrder.getType().getId().toString());
                 printObject.setIdUnit(unitOrder.getId().toString());
                 printObject.setTagLabel(unitOrder.getTagLabel());
                 printObject.setComment(unitOrder.getComment());
-                printObject.setPrice(String.format("%.2f",unitOrder.getUnitPrice()));
+                printObject.setPrice(String.format("%.2f", unitOrder.getUnitPrice()));
                 printUnitOrders.add(printObject);
 
             }
@@ -62,7 +62,7 @@ public class PrintService {
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(compileReport, dataPrint, tableData);
 
-            JasperExportManager.exportReportToPdfFile(jasperPrint, "test.pdf");
+            JasperExportManager.exportReportToPdfFile(jasperPrint, order.getId().toString() + "_.pdf");
 
             PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
             printRequestAttributeSet.add(MediaSizeName.ISO_A5);
@@ -83,13 +83,13 @@ public class PrintService {
             configuration.setDisplayPageDialog(false);
             configuration.setDisplayPrintDialog(false);
             exporter.setConfiguration(configuration);
-            while(quantity>0) {
-                exporter.exportReport();
+            while (quantity > 0) {
+                System.out.println("Drukowanie zamowienia");
+                //exporter.exportReport();
                 quantity--;
             }
             return true;
-        }
-        catch (FileNotFoundException | JRException ex){
+        } catch (FileNotFoundException | JRException ex) {
             System.out.println(ex.getMessage());
             return false;
         }

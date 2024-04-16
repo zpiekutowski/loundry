@@ -6,10 +6,7 @@ import com.zbiir.loundry.model.OrderDTO;
 import com.zbiir.loundry.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,9 +23,10 @@ public class OrderControler {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderDetails(@PathVariable long id){
+    public ResponseEntity <Order> getOrderDetails(@PathVariable long id){
         Order order = orderService.getOrderbyId(id);
-        return  (order != null)? ResponseEntity.ok(order) : (ResponseEntity<Order>) ResponseEntity.noContent();
+
+        return  (order != null)? ResponseEntity.ok(order) : ResponseEntity.noContent().build();
 
     }
 
@@ -45,5 +43,12 @@ public class OrderControler {
        return status;
     }
 
+    @PostMapping("/close/{id}")
+    public ApiRespond closeOrder(@PathVariable Long id){
+        ApiRespond status = new ApiRespond().setStatus(orderService.closeOrder(id));
+        //System.out.println(status);
+        return status;
+
+    }
 
 }
