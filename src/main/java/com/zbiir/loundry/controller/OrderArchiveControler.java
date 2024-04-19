@@ -4,6 +4,7 @@ import com.zbiir.loundry.model.OrderArchive;
 import com.zbiir.loundry.model.OrderArchiveDTO;
 import com.zbiir.loundry.service.OrderArchiveService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,19 +20,21 @@ public class OrderArchiveControler {
     @RequestMapping("/order/{id}")
     public ResponseEntity<OrderArchive> getOrderArchive(@PathVariable Long id) {
         OrderArchive orderArchive = orderArchiveService.getOrderArchive(id);
-       return (orderArchive != null)? ResponseEntity.ok(orderArchive) : ResponseEntity.noContent().build();
+        return (orderArchive != null) ? ResponseEntity.ok(orderArchive) : ResponseEntity.noContent().build();
     }
 
 
     @GetMapping("/page")
-    public ResponseEntity<List<OrderArchiveDTO>> getOrderArchivePage(@RequestParam(name = "page") Integer pageNumber, @RequestParam(name = "size") Integer pageSize) {
-        List<OrderArchiveDTO> result = orderArchiveService.getPageResult(pageNumber, pageSize);
+    public ResponseEntity<Page<OrderArchiveDTO>> getOrderArchivePage(@RequestParam(name = "page") Integer pageNumber, @RequestParam(name = "size") Integer pageSize) {
+        Page<OrderArchiveDTO> result = orderArchiveService.getPageResult(pageNumber, pageSize);
+
         if (result.isEmpty()) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
+
 
     @GetMapping("/all")
     public ResponseEntity<List<OrderArchive>> getAll() {

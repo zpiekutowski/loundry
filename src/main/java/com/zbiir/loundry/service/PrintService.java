@@ -62,7 +62,7 @@ public class PrintService {
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(compileReport, dataPrint, tableData);
 
-            JasperExportManager.exportReportToPdfFile(jasperPrint, order.getId().toString() + "_.pdf");
+            JasperExportManager.exportReportToPdfFile(jasperPrint, order.getId().toString() + ".pdf");
 
             PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
             printRequestAttributeSet.add(MediaSizeName.ISO_A5);
@@ -85,7 +85,7 @@ public class PrintService {
             exporter.setConfiguration(configuration);
             while (quantity > 0) {
                 System.out.println("Drukowanie zamowienia");
-                //exporter.exportReport();
+                exporter.exportReport();
                 quantity--;
             }
             return true;

@@ -4,7 +4,9 @@ import com.zbiir.loundry.model.OrderArchive;
 import com.zbiir.loundry.model.OrderArchiveDTO;
 import com.zbiir.loundry.repositories.OrderArchiveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,8 +34,9 @@ public class OrderArchiveService {
 
     }
 
-    public List<OrderArchiveDTO> getPageResult(Integer pageNumber, Integer pageSize) {
-        List<OrderArchive> result =  orderArchiveRepository.findAll(PageRequest.of(pageNumber,pageSize)).getContent();
-        return result.stream().map((e)->(new OrderArchiveDTO(e))).toList();
+    public Page<OrderArchiveDTO> getPageResult(Integer pageNumber, Integer pageSize) {
+        Page<OrderArchive> result =  orderArchiveRepository.findAll(PageRequest.of(pageNumber,pageSize, Sort.by("id").descending()));
+        return result.map((e)->(new OrderArchiveDTO(e)));
     }
+
 }
