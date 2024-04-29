@@ -7,11 +7,13 @@ import net.sf.jasperreports.engine.export.JRPrintServiceExporter;
 import net.sf.jasperreports.engine.type.OrientationEnum;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimplePrintServiceExporterConfiguration;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.print.PrintException;
+import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
@@ -19,6 +21,7 @@ import javax.print.attribute.standard.*;
 import javax.print.attribute.PrintServiceAttributeSet;
 import javax.print.attribute.HashPrintServiceAttributeSet;
 
+import java.awt.print.PrinterJob;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -30,6 +33,28 @@ import java.util.Map;
 @RestController
 @RequestMapping("/print")
 public class PrintControler {
+
+    @Value("${pinter.name}")
+    private String printerName;
+
+    @GetMapping("/list")
+    public List<String> listOfPrinters(){
+        PrintService [] printServices = PrinterJob.lookupPrintServices();
+        List<String> printers = new ArrayList<>();
+        for(int i=0; i<printServices.length;i++){
+            System.out.println(printServices[i].getName());
+            printers.add(printServices[i].getName());
+        }
+
+
+        printers.add("DEF:"+printerName);
+        return printers;
+    }
+
+
+
+
+
     @GetMapping("/order")
     public String printOrder() throws FileNotFoundException, JRException{
 
@@ -40,7 +65,8 @@ public class PrintControler {
 
 
         PrintObject p1 = new PrintObject("1","23","1","875",
-                "Koszula czarna poplaminona w biale plamy jak damy rade to bedzie ok jak nie to do odbioru a jak nie to do wyrzucenia do smieci","80.00");
+                "Koszula czarna poplaminona w biale plamy jak damy rade to bedzie ok jak nie to do odbioru " +
+                        "a jak nie to do wyrzucenia do smieci","80.00");
         PrintObject p2 = new PrintObject("2","25","4","950","Dywan","120.00");
         PrintObject p3 = new PrintObject("3","30","7","123","Sukienka","60.00");
 

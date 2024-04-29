@@ -61,7 +61,7 @@ public class OrderService {
         if (order.isEmpty()) {
             return false;
         }
-        printService.printOrder(order.get(), 1);
+        printService.printOrder(order.get(), 1,false);
         return true;
     }
 

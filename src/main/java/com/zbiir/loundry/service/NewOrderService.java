@@ -136,9 +136,11 @@ public class NewOrderService {
             order.getUnitOrders().add(unitOrder);
         });
         orderRepository.save(order);
+
         if (print) {
-            printService.printOrder(order,2);
-        }
+            printService.printOrder(order, 2, true);
+        } else printService.printOrder(order, 0, true);
+
         session.removeAttribute("newOrder");
 
     }

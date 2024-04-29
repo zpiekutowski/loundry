@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,24 +18,25 @@ public class OrderArchiveService {
     @Autowired
     private OrderArchiveRepository orderArchiveRepository;
 
-    public OrderArchive getOrderArchive(Long id){
+    public OrderArchive getOrderArchive(Long id) {
         Optional<OrderArchive> results = orderArchiveRepository.findById(id);
-        if(results.isPresent()){
+        if (results.isPresent()) {
             return results.get();
-        }
-        else {
+        } else {
             return null;
         }
     }
 
-    public List<OrderArchive> getAll(){
+    public List<OrderArchive> getAll() {
         return orderArchiveRepository.findAll();
 
     }
 
     public Page<OrderArchiveDTO> getPageResult(Integer pageNumber, Integer pageSize) {
-        Page<OrderArchive> result =  orderArchiveRepository.findAll(PageRequest.of(pageNumber,pageSize, Sort.by("id").descending()));
-        return result.map((e)->(new OrderArchiveDTO(e)));
+        if (pageNumber < 0)
+            pageNumber = 0;
+        Page<OrderArchive> result = orderArchiveRepository.findAll(PageRequest.of(pageNumber, pageSize, Sort.by("id").descending()));
+        return result.map((e) -> (new OrderArchiveDTO(e)));
     }
 
 }

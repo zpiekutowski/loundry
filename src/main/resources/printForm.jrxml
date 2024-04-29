@@ -72,7 +72,7 @@
                 <textElement verticalAlignment="Middle">
                     <font fontName="Yu Gothic UI" size="12" isBold="true" isItalic="true"/>
                 </textElement>
-                <text><![CDATA[Data przyjęcia:]]></text>
+                <text><![CDATA[Data przyjecia:]]></text>
             </staticText>
             <textField>
                 <reportElement x="265" y="0" width="104" height="20" uuid="52fd4174-1d9f-447b-b907-db80e64e74f4"/>
