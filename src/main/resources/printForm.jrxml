@@ -103,8 +103,8 @@
                 <textFieldExpression><![CDATA[$P{finishDate}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="0" y="67" width="170" height="17" uuid="4986fb06-e6a3-43a3-9f95-87d751eac0a5"/>
-                <textElement textAlignment="Left" verticalAlignment="Middle">
+                <reportElement stretchType="RelativeToTallestObject" x="0" y="50" width="170" height="34" uuid="4986fb06-e6a3-43a3-9f95-87d751eac0a5"/>
+                <textElement textAlignment="Left" verticalAlignment="Bottom">
                     <font size="12" isItalic="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>

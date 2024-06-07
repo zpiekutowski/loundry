@@ -23,6 +23,9 @@ public class OrderService {
     private OrderArchiveRepository orderArchiveRepository;
 
 
+
+
+
     public List<OrderDTO> getActiveOrders() {
 
         List<OrderDTO> ordersDTO = new ArrayList<>();
@@ -76,5 +79,10 @@ public class OrderService {
             orderRepository.delete(order);
             return true;
         }
+    }
+
+
+    public List<Order> getOrdersByCustomerId(Long id) {
+        return orderRepository.findOrdersByCustomerId(id);
     }
 }

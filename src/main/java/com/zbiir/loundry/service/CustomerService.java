@@ -1,9 +1,15 @@
 package com.zbiir.loundry.service;
 
+import com.zbiir.loundry.exception.DeleteActiveCustomerException;
 import com.zbiir.loundry.exception.IdCustomerOutOfBoudException;
 import com.zbiir.loundry.model.Customer;
+import com.zbiir.loundry.model.Order;
+import com.zbiir.loundry.model.OrderArchive;
 import com.zbiir.loundry.repositories.CustomerRepository;
+import com.zbiir.loundry.repositories.OrderArchiveRepository;
+import com.zbiir.loundry.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,13 +20,20 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private OrderArchiveRepository orderArchiveRepository;
+    @Value("${customer.deleted}")
+    private Long idDeletedCustomer;
+
 
     public Customer getSingleCustomer(long id) throws IdCustomerOutOfBoudException {
         Optional<Customer> customer = customerRepository.findById(id);
-        if(customer.isPresent()){
+        if (customer.isPresent()) {
             return customer.get();
-        }else {
-            throw new IdCustomerOutOfBoudException("Customer poza zakresem:"+id);
+        } else {
+            throw new IdCustomerOutOfBoudException("Klient poza zakresem:" + id);
         }
 
     }
@@ -38,7 +51,18 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public void deleteCustomer(long id) {
+
+    public void deleteCustomer(long id) throws DeleteActiveCustomerException {
+
+        List<Order> customerOrders = orderRepository.findOrdersByCustomerId(id);
+        if (!customerOrders.isEmpty()) throw new DeleteActiveCustomerException("Klien aktywny, zamknij aktywne zamowienia");
+
+        List<OrderArchive> customerArchiveOrders = orderArchiveRepository.findOrderArchiveByCustomerId(id);
+        if (!customerArchiveOrders.isEmpty()) {
+            Customer markAsDeleted = customerRepository.findById(idDeletedCustomer).get();
+            customerArchiveOrders.forEach(n -> n.setCustomer(markAsDeleted));
+        }
+
         customerRepository.deleteById(id);
     }
 

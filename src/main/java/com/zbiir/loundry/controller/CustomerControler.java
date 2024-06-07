@@ -1,5 +1,6 @@
 package com.zbiir.loundry.controller;
 
+import com.zbiir.loundry.exception.DeleteActiveCustomerException;
 import com.zbiir.loundry.exception.IdCustomerOutOfBoudException;
 import com.zbiir.loundry.model.Customer;
 import com.zbiir.loundry.model.CustomerDTO;
@@ -52,7 +53,7 @@ public class CustomerControler {
         return new ResponseEntity(createdCustomer,HttpStatus.CREATED);
     }
     @DeleteMapping("/delete/{id}")
-    public void deleteCustomer(@PathVariable long id){
+    public void deleteCustomer(@PathVariable long id) throws DeleteActiveCustomerException {
         customerService.deleteCustomer(id);
     }
     @GetMapping("/all")
