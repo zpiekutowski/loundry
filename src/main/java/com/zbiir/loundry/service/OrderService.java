@@ -23,9 +23,6 @@ public class OrderService {
     private OrderArchiveRepository orderArchiveRepository;
 
 
-
-
-
     public List<OrderDTO> getActiveOrders() {
 
         List<OrderDTO> ordersDTO = new ArrayList<>();
@@ -49,6 +46,13 @@ public class OrderService {
         Optional<Order> order = orderRepository.findById(id);
         if (order.isPresent()) {
             return order.get();
+
+            //            Order orderReturn = order.get();
+//            orderReturn.getUnitOrders().forEach(n->{
+//                if(n.getTagLabelNo()==null)
+//                    n.setTagLabelNo("");
+//            });
+//            return orderReturn;
         } else
             return null;
     }
@@ -64,8 +68,8 @@ public class OrderService {
         if (order.isEmpty()) {
             return false;
         }
-        printService.printOrder(order.get(), 1,false);
-        return true;
+        return printService.printOrder(order.get(), 1, false);
+        //return true;
     }
 
     public Boolean closeOrder(Long id) {

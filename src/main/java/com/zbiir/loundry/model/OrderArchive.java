@@ -23,6 +23,7 @@ public class OrderArchive {
     private Float price;
     private LocalDate startDate;
     private LocalDate planedFinishDate;
+    private Boolean isPaid;
     private  LocalDate pickupDate;
     @OneToMany (mappedBy = "idOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
@@ -34,6 +35,7 @@ public class OrderArchive {
         this.setPrice(order.getPrice());
         this.setStartDate(order.getStartDate());
         this.setPlanedFinishDate(order.getPlanedFinishDate());
+        this.setIsPaid(order.getIsPaid());
         this.setPickupDate(LocalDate.now());
         order.getUnitOrders().forEach((n)->{
             UnitOrderArchive uoa = new UnitOrderArchive(n);

@@ -64,11 +64,11 @@ public class PrintControler {
 //        PrintObject p3 = new PrintObject("3");
 
 
-        PrintObject p1 = new PrintObject("1","23","1","875",
+        PrintObject p1 = new PrintObject("23","1","875", "2",
                 "Koszula czarna poplaminona w biale plamy jak damy rade to bedzie ok jak nie to do odbioru " +
                         "a jak nie to do wyrzucenia do smieci","80.00");
-        PrintObject p2 = new PrintObject("2","25","4","950","Dywan","120.00");
-        PrintObject p3 = new PrintObject("3","30","7","123","Sukienka","60.00");
+        PrintObject p2 = new PrintObject("25","4","950","34","Dywan","120.00");
+        PrintObject p3 = new PrintObject("30","7","123","52","Sukienka","60.00");
 
         unitOrders.add(p1);
         unitOrders.add(p2);
@@ -114,7 +114,7 @@ public class PrintControler {
         exporter.exportReport();
         //exporter.exportReport();
 
-        return "Hello";
+        return "Zadanie";
     }
 
 }

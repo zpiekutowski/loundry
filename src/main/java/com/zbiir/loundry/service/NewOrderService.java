@@ -86,7 +86,7 @@ public class NewOrderService {
         for (int i = 0; i < newOrder.getUnitOrders().size(); i++) {
             newOrder.getUnitOrders().get(i).setRowNumber(i + 1);
         }
-        ;
+
         newOrder.setPrice((float) newOrder.getUnitOrders().stream().map(UnitOrderDTO::getPrice).reduce(0F, (a, b) -> a + b));
         return newOrder;
     }
@@ -130,6 +130,7 @@ public class NewOrderService {
             unitOrder.setIdOrder(order);
             unitOrder.setType(unit.getType());
             unitOrder.setTagLabel(unit.getTag());
+            unitOrder.setTagLabelNo(unit.getTagNo()); 
             unitOrder.setComment(unit.getComment());
             unitOrder.setUnitPrice(unit.getPrice());
             unitOrder.setFinishDate(null);

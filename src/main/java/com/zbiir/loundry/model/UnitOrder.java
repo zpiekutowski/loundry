@@ -24,10 +24,19 @@ public class UnitOrder {
     @ManyToOne
     @JoinColumn (name = "served_unit")
     private ServedUnit type;
-    private String tagLabel;
+    private String tagLabel;        // main laebl id
+    private String tagLabelNo;      // subnumbers f laggels
     private String comment;
     private Float unitPrice;
     private LocalDate finishDate;
+
+
+    public UnitOrder(UnitOrderArchive unitOrderArchive){
+
+
+    }
+
+
 
     @Override
     public String toString() {

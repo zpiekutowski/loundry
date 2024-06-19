@@ -45,6 +45,7 @@ public class UnitOrderService {
         unitOrderOrginal.setType(unitOrder.getType());
         unitOrderOrginal.setComment(unitOrder.getComment());
         unitOrderOrginal.setTagLabel(unitOrder.getTagLabel());
+        unitOrderOrginal.setTagLabelNo(unitOrder.getTagLabelNo());
         unitOrderRepository.save(unitOrderOrginal);
         Order order = unitOrderOrginal.getIdOrder();
         order.setPrice(order.getUnitOrders().stream().map(UnitOrder :: getUnitPrice).reduce(0F,(a,b)-> a+b));
@@ -79,6 +80,7 @@ public class UnitOrderService {
             unitOrderViewDTO.setId(n.getId());
             unitOrderViewDTO.setType(n.getType());
             unitOrderViewDTO.setTagLabel(n.getTagLabel());
+            unitOrderViewDTO.setTagLabelNo(n.getTagLabelNo());
             unitOrderViewDTO.setComment(n.getComment());
             unitOrderViewDTO.setPrice(n.getUnitPrice());
             unitOrderViewDTO.setFinishDate(n.getFinishDate());

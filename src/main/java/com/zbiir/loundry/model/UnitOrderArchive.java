@@ -23,15 +23,16 @@ public class UnitOrderArchive {
     @JoinColumn (name = "served_unit")
     private ServedUnit type;
     private String tagLabel;
+    private String tagLabelNo;
     private String comment;
     private Float unitPrice;
     private LocalDate finishDate;
 
     public UnitOrderArchive(UnitOrder unitOrder){
         this.setId(unitOrder.getId());
-//        this.setIdOrder(unitOrder.getIdOrder()); //set in OrderArchiveService
         this.setType(unitOrder.getType());
         this.setTagLabel(unitOrder.getTagLabel());
+        this.setTagLabelNo(unitOrder.getTagLabelNo());
         this.setComment(unitOrder.getComment());
         this.setUnitPrice(unitOrder.getUnitPrice());
         this.setFinishDate(unitOrder.getFinishDate());

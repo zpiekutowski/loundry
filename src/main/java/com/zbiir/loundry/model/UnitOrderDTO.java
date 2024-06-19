@@ -10,7 +10,8 @@ import java.time.LocalDate;
 public class UnitOrderDTO {
     private int rowNumber;
     private ServedUnit type;
-    private String tag;
+    private String tag;     //Tag ID main
+    private String tagNo;   // Tag subnumber
     private String comment;
     @Valid
     @NotNull (message = "Price cannot be null")

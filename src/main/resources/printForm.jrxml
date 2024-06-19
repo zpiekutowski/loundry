@@ -49,10 +49,10 @@
     <queryString>
         <![CDATA[]]>
     </queryString>
-    <field name="lp" class="java.lang.String"/>
     <field name="idUnit" class="java.lang.String"/>
     <field name="type" class="java.lang.String"/>
     <field name="tagLabel" class="java.lang.String"/>
+    <field name="tagLabelNo" class="java.lang.String"/>
     <field name="comment" class="java.lang.String"/>
     <field name="price" class="java.lang.String"/>
     <background>
@@ -61,42 +61,42 @@
     <title>
         <band height="125" splitType="Stretch">
             <staticText>
-                <reportElement x="0" y="0" width="170" height="20" uuid="863ed9f4-b850-46eb-91c9-baa496b76064"/>
+                <reportElement x="50" y="-4" width="120" height="20" uuid="863ed9f4-b850-46eb-91c9-baa496b76064"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="DejaVu Serif" size="16" isBold="true" isItalic="true"/>
+                    <font fontName="Bahnschrift" size="16" isBold="true" isItalic="false"/>
                 </textElement>
                 <text><![CDATA[MOBIL CLEAN]]></text>
             </staticText>
             <staticText>
-                <reportElement x="180" y="0" width="85" height="20" uuid="c0a5594c-ace0-4bb2-9b4a-e0bb3e901a76"/>
+                <reportElement x="195" y="0" width="85" height="20" uuid="c0a5594c-ace0-4bb2-9b4a-e0bb3e901a76"/>
                 <textElement verticalAlignment="Middle">
-                    <font fontName="Yu Gothic UI" size="12" isBold="true" isItalic="true"/>
+                    <font fontName="Arial" size="12" isBold="true" isItalic="true" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="true"/>
                 </textElement>
-                <text><![CDATA[Data przyjecia:]]></text>
+                <text><![CDATA[Data przyjęcia:]]></text>
             </staticText>
             <textField>
-                <reportElement x="265" y="0" width="104" height="20" uuid="52fd4174-1d9f-447b-b907-db80e64e74f4"/>
+                <reportElement x="280" y="0" width="89" height="20" uuid="52fd4174-1d9f-447b-b907-db80e64e74f4"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="14"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{startDate}]]></textFieldExpression>
             </textField>
             <staticText>
-                <reportElement x="0" y="16" width="170" height="29" uuid="56ee9b47-eaf5-477d-ad85-5178a0168c38"/>
+                <reportElement x="50" y="16" width="120" height="29" uuid="56ee9b47-eaf5-477d-ad85-5178a0168c38"/>
                 <textElement textAlignment="Center">
-                    <font size="20" isItalic="true"/>
+                    <font fontName="Arial" size="20" isBold="true" isItalic="false"/>
                 </textElement>
                 <text><![CDATA[574 339 557]]></text>
             </staticText>
             <staticText>
-                <reportElement x="180" y="20" width="85" height="20" uuid="eaf39b73-f28f-49c3-91e9-741af7d0d45e"/>
+                <reportElement x="195" y="20" width="85" height="20" uuid="eaf39b73-f28f-49c3-91e9-741af7d0d45e"/>
                 <textElement verticalAlignment="Middle">
-                    <font fontName="Yu Gothic UI" size="12" isBold="true" isItalic="true"/>
+                    <font fontName="Arial" size="12" isBold="true" isItalic="true"/>
                 </textElement>
                 <text><![CDATA[Data odbioru:]]></text>
             </staticText>
             <textField>
-                <reportElement x="265" y="20" width="104" height="20" uuid="eb5ba877-9347-4cf6-8c3f-8e51547c0742"/>
+                <reportElement x="280" y="20" width="89" height="20" uuid="eb5ba877-9347-4cf6-8c3f-8e51547c0742"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font size="14"/>
                 </textElement>
@@ -105,21 +105,21 @@
             <textField>
                 <reportElement stretchType="RelativeToTallestObject" x="0" y="50" width="170" height="34" uuid="4986fb06-e6a3-43a3-9f95-87d751eac0a5"/>
                 <textElement textAlignment="Left" verticalAlignment="Bottom">
-                    <font size="12" isItalic="true"/>
+                    <font fontName="Arial" size="14" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="0" y="100" width="170" height="18" uuid="bc08dac9-d1d9-430b-92c6-03b74bcb0ae4"/>
+                <reportElement x="20" y="100" width="170" height="18" uuid="bc08dac9-d1d9-430b-92c6-03b74bcb0ae4"/>
                 <textElement verticalAlignment="Bottom">
-                    <font size="14"/>
+                    <font fontName="Arial" size="14"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{phone}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="0" y="84" width="170" height="16" uuid="69b1e916-05ac-4afe-9b62-1748651f0b93"/>
+                <reportElement x="10" y="84" width="170" height="16" uuid="69b1e916-05ac-4afe-9b62-1748651f0b93"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle">
-                    <font size="12" isItalic="true"/>
+                    <font fontName="Arial" size="12" isItalic="true" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{addres}]]></textFieldExpression>
             </textField>
@@ -129,15 +129,24 @@
                     <pen lineWidth="1.0" lineStyle="Solid"/>
                 </box>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="32" isItalic="true"/>
+                    <font fontName="Arial" size="32" isItalic="false"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{idOrder}]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="220" y="50" width="140" height="20" uuid="4c6fd37e-5af3-4001-b07a-be2643bcac49"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle"/>
-                <text><![CDATA[ZAMOWIENIE NR]]></text>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Arial" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+                </textElement>
+                <text><![CDATA[ZAMÓWIENIE NR]]></text>
             </staticText>
+            <image>
+                <reportElement x="0" y="-4" width="51" height="51" uuid="6a102481-ebf5-46e2-84b7-d7393fa29e96"/>
+                <imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+            </image>
+            <ellipse>
+                <reportElement x="169" y="40" width="30" height="30" uuid="45e8c77a-82ba-45f3-bda0-eea756573fe3"/>
+            </ellipse>
         </band>
     </title>
     <pageHeader>
@@ -153,8 +162,10 @@
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement textAlignment="Center" verticalAlignment="Middle"/>
-                <text><![CDATA[Lp]]></text>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Arial"/>
+                </textElement>
+                <text><![CDATA[ZN]]></text>
             </staticText>
             <staticText>
                 <reportElement x="30" y="0" width="30" height="20" uuid="c3195714-1a51-4404-ad42-d1f217f7d52b"/>
@@ -164,40 +175,35 @@
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Arial"/>
+                </textElement>
                 <text><![CDATA[TYP]]></text>
             </staticText>
             <staticText>
-                <reportElement x="60" y="0" width="30" height="20" uuid="547c156c-57df-4015-9fd0-e1f3f1020cba"/>
+                <reportElement x="60" y="0" width="50" height="20" uuid="547c156c-57df-4015-9fd0-e1f3f1020cba"/>
                 <box>
                     <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement textAlignment="Center" verticalAlignment="Middle"/>
-                <text><![CDATA[ZN]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="90" y="0" width="40" height="20" uuid="1b849874-0deb-45c6-979e-76d9d75cf98a"/>
-                <box>
-                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-                </box>
-                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Arial"/>
+                </textElement>
                 <text><![CDATA[TAG]]></text>
             </staticText>
             <staticText>
-                <reportElement x="130" y="0" width="190" height="20" uuid="3650d2e0-b620-4917-ad56-d98dc4a0a9ec"/>
+                <reportElement x="110" y="0" width="210" height="20" uuid="3650d2e0-b620-4917-ad56-d98dc4a0a9ec"/>
                 <box>
                     <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Arial"/>
+                </textElement>
                 <text><![CDATA[OPIS]]></text>
             </staticText>
             <staticText>
@@ -208,7 +214,9 @@
                     <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
-                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Arial"/>
+                </textElement>
                 <text><![CDATA[Cena]]></text>
             </staticText>
         </band>
@@ -225,9 +233,9 @@
                     <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="8"/>
+                    <font fontName="Arial" size="8"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$F{lp}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{idUnit}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement stretchType="RelativeToTallestObject" x="30" y="0" width="30" height="20" uuid="2b61bb3e-f111-4448-8191-0b7c5aa0e69a"/>
@@ -239,7 +247,7 @@
                     <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="8"/>
+                    <font fontName="Arial" size="8"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
             </textField>
@@ -253,12 +261,12 @@
                     <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="8"/>
+                    <font fontName="Arial" size="8"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$F{idUnit}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{tagLabel}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement stretchType="RelativeToTallestObject" x="90" y="0" width="40" height="20" uuid="0085ec89-4620-4cc7-ae1d-fe0e6898a081"/>
+                <reportElement stretchType="RelativeToTallestObject" x="90" y="0" width="20" height="20" uuid="0085ec89-4620-4cc7-ae1d-fe0e6898a081"/>
                 <box>
                     <pen lineWidth="0.5"/>
                     <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -267,9 +275,9 @@
                     <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="8"/>
+                    <font fontName="Arial" size="6"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$F{tagLabel}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{tagLabelNo}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement stretchType="RelativeToTallestObject" x="320" y="0" width="50" height="20" uuid="78534164-f793-46af-9223-b82fdadc058b"/>
@@ -281,12 +289,12 @@
                     <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="9" isItalic="true"/>
+                    <font fontName="Arial" size="9" isItalic="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
             </textField>
             <textField textAdjust="StretchHeight">
-                <reportElement stretchType="RelativeToTallestObject" x="130" y="0" width="190" height="20" uuid="0739071b-c797-46f7-aadf-68e109210441"/>
+                <reportElement stretchType="RelativeToTallestObject" x="110" y="0" width="210" height="20" uuid="0739071b-c797-46f7-aadf-68e109210441"/>
                 <box>
                     <pen lineWidth="0.5"/>
                     <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -295,7 +303,7 @@
                     <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="8"/>
+                    <font fontName="Arial" size="8" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$F{comment}]]></textFieldExpression>
             </textField>
@@ -306,14 +314,14 @@
             <textField>
                 <reportElement x="1" y="12" width="171" height="50" uuid="6343df5b-a75f-4bd2-9363-52b4afb4b3ec"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="Ink Free" size="19" isBold="true" isItalic="true"/>
+                    <font fontName="Arial" size="19" isBold="true" isItalic="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{isPaid}]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="175" y="11" width="80" height="31" uuid="dead28fb-f1db-49d7-833e-444df81ed083"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="18"/>
+                    <font fontName="Arial" size="18"/>
                 </textElement>
                 <text><![CDATA[SUMA:]]></text>
             </staticText>
@@ -326,7 +334,7 @@
                     <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
                 </box>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="20" isItalic="true"/>
+                    <font fontName="Arial" size="20" isItalic="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{totalPrice}]]></textFieldExpression>
             </textField>

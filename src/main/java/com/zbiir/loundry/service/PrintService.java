@@ -43,24 +43,36 @@ public class PrintService {
             dataPrint.put("addres", order.getCustomer().getAddres());
             dataPrint.put("phone", order.getCustomer().getPhone());
             dataPrint.put("idOrder", order.getId().toString());
-            String paid = (order.getIsPaid()) ? "ZAPLACONE" : "PLATNE PRZY ODBIORZE";
+            String paid = (order.getIsPaid()) ? "ZAPŁACONE" : "PŁATNE PRZY ODBIORZE";
             dataPrint.put("isPaid", paid);
             dataPrint.put("totalPrice", String.format("%.2f", order.getPrice()));
 
 
-            List printUnitOrders = new ArrayList();
-            for (int i = 0; i < order.getUnitOrders().size(); i++) {
+            List <PrintObject> printUnitOrders = new ArrayList<PrintObject>();
+
+            order.getUnitOrders().forEach(n->{
                 PrintObject printObject = new PrintObject();
-                UnitOrder unitOrder = order.getUnitOrders().get(i);
-                printObject.setLp(Integer.toString(i + 1));
-                printObject.setType(unitOrder.getType().getId().toString());
-                printObject.setIdUnit(unitOrder.getId().toString());
-                printObject.setTagLabel(unitOrder.getTagLabel());
-                printObject.setComment(unitOrder.getComment());
-                printObject.setPrice(String.format("%.2f", unitOrder.getUnitPrice()));
+                printObject.setType(n.getType().getId().toString());
+                printObject.setIdUnit(n.getId().toString());
+                printObject.setTagLabel(n.getTagLabel());
+                printObject.setTagLabelNo(n.getTagLabelNo());
+                printObject.setComment(n.getComment());
+                printObject.setPrice(String.format("%.2f", n.getUnitPrice()));
                 printUnitOrders.add(printObject);
 
-            }
+            });
+
+//            for (int i = 0; i < order.getUnitOrders().size(); i++) {
+//                PrintObject printObject = new PrintObject();
+//                UnitOrder unitOrder = order.getUnitOrders().get(i);
+//                printObject.setType(unitOrder.getType().getId().toString());
+//                printObject.setIdUnit(unitOrder.getId().toString());
+//                printObject.setTagLabel(unitOrder.getTagLabel());
+//                printObject.setComment(unitOrder.getComment());
+//                printObject.setPrice(String.format("%.2f", unitOrder.getUnitPrice()));
+//                printUnitOrders.add(printObject);
+//
+//            }
 
 
             JRBeanCollectionDataSource tableData = new JRBeanCollectionDataSource(printUnitOrders);
@@ -100,7 +112,7 @@ public class PrintService {
             }
             return true;
         } catch (FileNotFoundException | JRException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("Print" + ex.getMessage());
             return false;
         }
 

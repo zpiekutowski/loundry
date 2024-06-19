@@ -46,4 +46,9 @@ public class OrderArchiveControler {
         }
 
     }
+    @PutMapping("/restore/{id}")
+    public String restoreOrder(@PathVariable Long id){
+        orderArchiveService.restore(id);
+        return null;
+    }
 }

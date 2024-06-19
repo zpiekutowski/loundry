@@ -39,4 +39,7 @@ public class OrderArchiveService {
         return result.map((e) -> (new OrderArchiveDTO(e)));
     }
 
+    public void restore(Long id) {
+
+    }
 }
