@@ -112,7 +112,7 @@ public class PrintService {
             }
             return true;
         } catch (FileNotFoundException | JRException ex) {
-            System.out.println("Print" + ex.getMessage());
+            System.out.println("Print error:" + ex.getMessage());
             return false;
         }
 

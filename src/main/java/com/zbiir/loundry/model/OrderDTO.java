@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Data
 public class OrderDTO {
     private long id;
+    private Long customerId;
     private String customerName;
     private int unitQtn;
     private LocalDate startingDate;

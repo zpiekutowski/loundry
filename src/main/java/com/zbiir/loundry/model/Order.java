@@ -3,12 +3,14 @@ package com.zbiir.loundry.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "ORDERS")
 public class Order {
@@ -26,6 +28,22 @@ public class Order {
     @OneToMany (mappedBy = "idOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<UnitOrder> unitOrders = new ArrayList<UnitOrder>();
+
+//    public Order(OrderArchive orderArchive){
+//        this.setId(orderArchive.getId());
+//        this.setCustomer(orderArchive.getCustomer());
+//        this.setPrice(orderArchive.getPrice());
+//        this.setStartDate(orderArchive.getStartDate());
+//        this.setPlanedFinishDate(orderArchive.getPlanedFinishDate());
+//        this.setIsReady(true);
+//        this.setIsPaid(orderArchive.getIsPaid());
+//        orderArchive.getUnitOrdersArchive().forEach(n->{
+//            UnitOrder uo = new UnitOrder(n);
+//            uo.setIdOrder(this);
+//            unitOrders.add(uo);
+//        });
+//    }
+
 
     @Override
     public String toString() {

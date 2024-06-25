@@ -25,16 +25,21 @@ public class UnitOrder {
     @JoinColumn (name = "served_unit")
     private ServedUnit type;
     private String tagLabel;        // main laebl id
-    private String tagLabelNo;      // subnumbers f laggels
+    private String tagLabelNo;      // subnumber  label
     private String comment;
     private Float unitPrice;
     private LocalDate finishDate;
 
 
-    public UnitOrder(UnitOrderArchive unitOrderArchive){
-
-
-    }
+//    public UnitOrder(UnitOrderArchive unitOrderArchive){
+//        this.setId(unitOrderArchive.getId());
+//        this.setType(unitOrderArchive.getType());
+//        this.setTagLabel(unitOrderArchive.getTagLabel());
+//        this.setTagLabelNo(unitOrderArchive.getTagLabelNo());
+//        this.setComment(unitOrderArchive.getComment());
+//        this.setUnitPrice(unitOrderArchive.getUnitPrice());
+//        this.setFinishDate(unitOrderArchive.getFinishDate());
+//    }
 
 
 

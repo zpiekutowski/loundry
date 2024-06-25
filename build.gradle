@@ -36,7 +36,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.liquibase:liquibase-core'
-//	implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	implementation 'net.sf.jasperreports:jasperreports:6.19.0'

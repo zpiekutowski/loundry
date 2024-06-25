@@ -53,6 +53,8 @@ public class CustomerService {
 
 
     public void deleteCustomer(long id) throws DeleteActiveCustomerException {
+        if (id == 1)
+            throw new DeleteActiveCustomerException("Nr 1 nie moze byc usunięty");
 
         List<Order> customerOrders = orderRepository.findOrdersByCustomerId(id);
         if (!customerOrders.isEmpty()) throw new DeleteActiveCustomerException("Klien aktywny, zamknij aktywne zamowienia");

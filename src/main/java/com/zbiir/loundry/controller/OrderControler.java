@@ -1,10 +1,12 @@
 package com.zbiir.loundry.controller;
 
-import com.zbiir.loundry.model.ApiRespond;
+import com.zbiir.loundry.exception.OrderActiveException;
+import com.zbiir.loundry.exception.OrderExistException;
 import com.zbiir.loundry.model.Order;
 import com.zbiir.loundry.model.OrderDTO;
 import com.zbiir.loundry.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,19 +39,17 @@ public class OrderControler {
 
     }
     @GetMapping("/print/{id}")
-    public ApiRespond printOrder(@PathVariable Long id){
-
-       ApiRespond status = new ApiRespond().setStatus(orderService.printOrder(id));
-       return status;
+    @ResponseStatus(HttpStatus.OK)
+    public void printOrder(@PathVariable Long id) throws OrderExistException {
+       orderService.printOrder(id);
     }
 
     @PostMapping("/close/{id}")
-    public ApiRespond closeOrder(@PathVariable Long id){
-        ApiRespond status = new ApiRespond().setStatus(orderService.closeOrder(id));
-        //System.out.println(status);
-        return status;
-
+    @ResponseStatus(HttpStatus.OK)
+    public void closeOrder(@PathVariable Long id) throws OrderExistException, OrderActiveException {
+        orderService.closeOrder(id);
     }
+
     @GetMapping("/customer/{id}")
     public List<Order> GetOrdersByCustomer(@PathVariable Long id){
        return orderService.getOrdersByCustomerId(id);

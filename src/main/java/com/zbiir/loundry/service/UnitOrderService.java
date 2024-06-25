@@ -85,7 +85,9 @@ public class UnitOrderService {
             unitOrderViewDTO.setPrice(n.getUnitPrice());
             unitOrderViewDTO.setFinishDate(n.getFinishDate());
             unitOrderViewDTO.setPickUpDate(n.getIdOrder().getPlanedFinishDate());
+            unitOrderViewDTO.setOrderId(n.getIdOrder().getId());
             unitOrdersView.add(unitOrderViewDTO);
+
         });
         return unitOrdersView;
 

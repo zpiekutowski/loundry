@@ -67,5 +67,16 @@ public class AplicationExceptionHandler {
         return errorMap;
     }
 
+    /**
+     *Exception to close order: active - not ready
+     */
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(OrderActiveException.class)
+    public Map<String, String> handlerOrderActiveException(OrderActiveException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("message", ex.getMessage());
+        return errorMap;
+    }
+
 
 }

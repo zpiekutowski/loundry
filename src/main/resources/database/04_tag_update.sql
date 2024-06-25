@@ -18,3 +18,4 @@ ALTER TABLE unit_order_archive
 -- changeset zbiir:10
 ALTER TABLE order_archive
 ADD COLUMN IS_PAID BOOLEAN DEFAULT false;
+

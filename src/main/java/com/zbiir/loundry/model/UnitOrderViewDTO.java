@@ -14,5 +14,6 @@ public class UnitOrderViewDTO {
     private Float price;
     private LocalDate finishDate;
     private LocalDate pickUpDate;
+    private Long orderId;
 
 }

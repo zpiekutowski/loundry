@@ -1,5 +1,7 @@
 package com.zbiir.loundry.service;
 
+import com.zbiir.loundry.exception.OrderActiveException;
+import com.zbiir.loundry.exception.OrderExistException;
 import com.zbiir.loundry.model.Order;
 import com.zbiir.loundry.model.OrderArchive;
 import com.zbiir.loundry.model.OrderDTO;
@@ -32,6 +34,7 @@ public class OrderService {
             OrderDTO orderDTO = new OrderDTO();
             orderDTO.setId(item.getId());
             orderDTO.setCustomerName(item.getCustomer().getName());
+            orderDTO.setCustomerId(item.getCustomer().getId());
             orderDTO.setStartingDate(item.getStartDate());
             orderDTO.setPlanedFinishDate(item.getPlanedFinishDate());
             orderDTO.setUnitQtn(item.getUnitOrders().size());
@@ -47,12 +50,6 @@ public class OrderService {
         if (order.isPresent()) {
             return order.get();
 
-            //            Order orderReturn = order.get();
-//            orderReturn.getUnitOrders().forEach(n->{
-//                if(n.getTagLabelNo()==null)
-//                    n.setTagLabelNo("");
-//            });
-//            return orderReturn;
         } else
             return null;
     }
@@ -62,22 +59,24 @@ public class OrderService {
 
     }
 
-    public boolean printOrder(Long id) {
+    public boolean printOrder(Long id) throws OrderExistException {
 
         Optional<Order> order = orderRepository.findById(id);
         if (order.isEmpty()) {
-            return false;
+            throw new OrderExistException("Zamowienie nie istnieje");
         }
         return printService.printOrder(order.get(), 1, false);
         //return true;
     }
 
-    public Boolean closeOrder(Long id) {
+    public Boolean closeOrder(Long id) throws OrderExistException, OrderActiveException {
         Optional<Order> optionalOrder = orderRepository.findById(id);
         if (optionalOrder.isEmpty()) {
-            return false;
+            throw new OrderExistException("Zamowienie nie istnieje");
         } else {
             Order order = optionalOrder.get();
+            if(!order.getIsReady())
+                throw new OrderActiveException("Blad zamkniecia - zamowienie niegotowe");
             OrderArchive orderArchive = new OrderArchive(order);
             orderArchiveRepository.save(orderArchive);
             orderRepository.delete(order);

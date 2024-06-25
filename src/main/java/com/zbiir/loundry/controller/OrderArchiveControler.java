@@ -1,5 +1,6 @@
 package com.zbiir.loundry.controller;
 
+import com.zbiir.loundry.exception.OrderExistException;
 import com.zbiir.loundry.model.OrderArchive;
 import com.zbiir.loundry.model.OrderArchiveDTO;
 import com.zbiir.loundry.service.OrderArchiveService;
@@ -47,8 +48,8 @@ public class OrderArchiveControler {
 
     }
     @PutMapping("/restore/{id}")
-    public String restoreOrder(@PathVariable Long id){
+    @ResponseStatus(HttpStatus.OK)
+    public void restoreOrder(@PathVariable Long id) throws OrderExistException {
         orderArchiveService.restore(id);
-        return null;
     }
 }

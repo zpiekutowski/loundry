@@ -145,7 +145,7 @@
                 <imageExpression><![CDATA["logo.jpg"]]></imageExpression>
             </image>
             <ellipse>
-                <reportElement x="169" y="40" width="30" height="30" uuid="45e8c77a-82ba-45f3-bda0-eea756573fe3"/>
+                <reportElement x="170" y="10" width="21" height="20" uuid="45e8c77a-82ba-45f3-bda0-eea756573fe3"/>
             </ellipse>
         </band>
     </title>
